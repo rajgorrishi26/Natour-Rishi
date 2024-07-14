@@ -127,35 +127,35 @@ exports.isLoggedIn = async (req, res, next) => {
         // 2) Check if user still exists
         const currentUser = await User.findById(decoded.id);
         if (!currentUser) {
-            console.log("user not found!");
+            // console.log("user not found!");
           return next();
         }
   
         // 3) Check if user changed password after the token was issued
         if (currentUser.changedPasswordAfter(decoded.iat)) {
-            console.log("password changed");
+            // console.log("password changed");
           return next();
         }
   
         // THERE IS A LOGGED IN USER
         res.locals.user = currentUser;
-        console.log('loged in done');
+        // console.log('loged in done');
         return next();
       }
        catch (err) {
         console.error(err)
-        console.log("somthing error occurs");
+        // console.log("somthing error occurs");
         return next();
       }
     }
-    console.log('user not login');
+    // console.log('user not login');
     next();
   };
 
 // +++++++++++++++++++ RESTRICTION PART (ADMIN ACCESS PART) PART++++++++++++++++++++++++++++++++++++
 exports.restrictTo = (...roles) => {
     return (req, res, next) => {
-        console.log(req.user.role);
+        // console.log(req.user.role);
         // roles ['admin', 'lead-guide']. role='user'
         if (!req.user || !roles.includes(req.user.role)) {
             return next(

@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const AppError = require("./Utils/appError.js");
 const globalErrorHandler = require('./Controllers/errorController.js');
@@ -37,7 +38,7 @@ app.use(
   })
 );
 // DEVELOPMENT LOGGING
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -69,10 +70,11 @@ app.use(hpp({
 // TEST MIDDLEWARE
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  console.log(req.cookies);
+  // console.log(req.cookies);
   next();
 });
 
+app.use(compression())
 
 app.use('/', viewRouter);
 app.use('/api/v1/tours', TourRouter);

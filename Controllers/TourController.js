@@ -32,7 +32,7 @@ exports.uploadTourImages = upload.fields([
 exports.resizeTourImages = catchAsync(async (req, res, next) => {
   if (!req.files.imageCover && !req.files.images) return next();
 
-  console.log('Files:', req.files);
+  // console.log('Files:', req.files);
 
   // Process cover image
   if (req.files.imageCover) {
@@ -66,7 +66,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
     );
   }
 
-  console.log('Final req.body:', req.body);
+  // console.log('Final req.body:', req.body);
   next();
 });
 

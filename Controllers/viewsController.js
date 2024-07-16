@@ -37,6 +37,14 @@ exports.getTour = catchAsync(async (req, res, next) => {
     tour
   });
 });
+
+// Add the getSignupForm controller
+exports.getSignupForm = (req, res) => {
+  res.status(200).render('signup', {
+    title: 'Sign up for an account',
+  });
+};
+
 exports.getLoginForm = (req, res) => {
   res.status(200).render('login', {
     title: 'Log into your account'
